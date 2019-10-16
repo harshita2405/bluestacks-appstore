@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon --exec babel-node server",
-    "server-debug": "nodemon --inspect --exec babel-node server"
+    "server-debug": "nodemon --inspect --exec babel-node server",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "author": "Harshita",
   "license": "ISC",
