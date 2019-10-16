@@ -82,20 +82,29 @@ const createAppDocumentsArr = dom => {
   return apps;
 };
 
+const fetchDOMFromUrl = async url => {
+  return await axios
+    .get(url)
+    .then(res => {
+      if (res.status === 200) {
+        return res.data;
+      }
+      throw new Error("Failed to load url");
+    })
+    .then(html => {
+      const dom = new JSDOM(html);
+      return dom.window.document;
+    })
+    .catch(err => {
+      throw new Error(err.message);
+    });
+};
+
 export const scrapeLatestDOM = async (req, res) => {
   try {
-    const appStoreDOM = await axios
-      .get("https://play.google.com/store/apps/collection/topselling_free")
-      .then(res => {
-        if (res.status === 200) {
-          return res.data;
-        }
-        throw new Error("Failed to load url");
-      })
-      .then(html => {
-        const dom = new JSDOM(html);
-        return dom.window.document;
-      });
+    const appStoreDOM = await fetchDOMFromUrl(
+      "https://play.google.com/store/apps/collection/topselling_free"
+    );
 
     // Remove all the data from DB
     console.log("Removing all the data from DB");
@@ -209,18 +218,9 @@ const fetchAppViaPkg = async pkg => {
   }
   if (!app.detais) {
     console.log(`Missing App details for ${pkg}`);
-    const document = await axios
-      .get(`https://play.google.com/store/apps/details?id=${pkg}`)
-      .then(res => {
-        if (res.status === 200) {
-          return res.data;
-        }
-        throw new Error("Failed to load url");
-      })
-      .then(html => {
-        const dom = new JSDOM(html);
-        return dom.window.document;
-      });
+    const document = await fetchDOMFromUrl(
+      `https://play.google.com/store/apps/details?id=${pkg}`
+    );
 
     const details = scrapeAppDetails(document);
     if (!details) {

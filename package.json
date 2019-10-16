@@ -5,9 +5,13 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node server",
+    "start": "babel-node server",
+    "build-client": "cd client && npm run build",
+    "watch-server": "npm run build-client && nodemon --exec babel-node server",
+    "watch-client": "cd client && npm run start",
     "server-debug": "nodemon --inspect --exec babel-node server",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
+    "concurrently": "concurrently \"npm run start\" \"npm run start --prefix client\""
   },
   "author": "Harshita",
   "license": "ISC",
