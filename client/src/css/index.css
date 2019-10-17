@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+.app {
+  width: 100%;
+  background-color: #eeeeee;
+}
