@@ -22,10 +22,10 @@
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
     "mongoose": "^5.7.5",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "@babel/cli": "^7.6.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
     "@babel/preset-env": "^7.6.3",
