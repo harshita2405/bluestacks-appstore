@@ -9,6 +9,7 @@ const Header = () => {
         <img
           className='logo'
           src='https://www.gstatic.com/android/market_images/web/play_prism_hlock_2x.png'
+          alt='Logo'
         />
       </Link>
     </div>

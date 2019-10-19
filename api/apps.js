@@ -107,8 +107,8 @@ export const scrapeLatestDOM = async (req, res) => {
     );
 
     // Remove all the data from DB
-    console.log("Removing all the data from DB");
-    await AppModel.deleteMany({});
+    // console.log("Removing all the data from DB");
+    // await AppModel.deleteMany({});
 
     // Create current DOM document array for apps
     const appsArr = createAppDocumentsArr(appStoreDOM);

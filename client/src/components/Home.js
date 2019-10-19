@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { fetchAllApps } from "../api/apps";
+import { fetchAllApps, fetchLatestApps } from "../api/apps";
 import "../css/home.css";
+import "../css/index.css";
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
       status: "Pending",
-      apps: []
+      apps: [],
+      alertMessage: "",
+      fetchLatestAppsDisabled: false
     };
   }
 
@@ -38,13 +41,13 @@ class Home extends Component {
   }
 
   renderApps = () => {
-    return this.state.apps.map(app => {
+    return this.state.apps.map((app, index) => {
       return (
-        <div className='link'>
+        <div key={index} className='link'>
           <Link to={`/appDetails?pkg=${app.pkg}`}>
             <div key={app.pkg} className='app-box'>
               <div className='image-wrapper'>
-                <img src={app.image} />
+                <img src={app.image} alt='app icon' />
               </div>
               <p className='title'>{app.title}</p>
               <p className='company'>{app.company}</p>
@@ -56,6 +59,48 @@ class Home extends Component {
     });
   };
 
+  hideAlert = () => {
+    setTimeout(() => {
+      this.setState({
+        alertMessage: ""
+      });
+    }, 3000);
+  };
+
+  fetchLatestApps = async () => {
+    this.setState({
+      fetchLatestAppsDisabled: true
+    });
+    try {
+      const data = await fetchLatestApps();
+      console.log(data);
+      if (data && data.status && data.status.code === 0) {
+        if (data.apps.length > 0) {
+          this.setState({
+            status: "Resolved",
+            apps: [...this.state.apps, ...data.apps],
+            fetchLatestAppsDisabled: false
+          });
+        } else {
+          this.setState({
+            alertMessage: "Nothing to update !",
+            fetchLatestAppsDisabled: false
+          });
+          this.hideAlert();
+        }
+      } else {
+        throw new Error(data.status.message);
+      }
+    } catch (err) {
+      console.log(err.message);
+      this.setState({
+        alertMessage: "Something went wrong ! Pl try again later",
+        fetchLatestAppsDisabled: false
+      });
+      this.hideAlert();
+    }
+  };
+
   render() {
     if (this.state.status === "Pending") {
       return <div>Loading</div>;
@@ -64,6 +109,16 @@ class Home extends Component {
     } else {
       return (
         <div className='grid-wrapper'>
+          <div className='fetch-latest-btn-wrapper'>
+            <button
+              className='green-btn fetch-latest-btn'
+              disabled={this.state.fetchLatestAppsDisabled}
+              onClick={this.fetchLatestApps}
+            >
+              Click to fetch latest apps
+            </button>
+            <div className='alert-message'>{this.state.alertMessage}</div>
+          </div>
           <div className='grid'>{this.renderApps()}</div>
         </div>
       );

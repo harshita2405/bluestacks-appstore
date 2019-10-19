@@ -21,3 +21,10 @@ export const fetchApp = async pkg => {
     .then(res => res.data)
     .catch(err => err.message);
 };
+
+export const fetchLatestApps = async pkg => {
+  return await localhostServer
+    .post("/apps.json")
+    .then(res => res.data)
+    .catch(err => err.message);
+};

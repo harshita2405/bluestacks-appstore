@@ -7,3 +7,12 @@ body {
   width: 100%;
   background-color: #eeeeee;
 }
+
+.green-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.green-btn:hover {
+  background-color: #3e8e41;
+}

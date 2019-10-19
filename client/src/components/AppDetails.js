@@ -1,6 +1,7 @@
 import React from "react";
 import { fetchApp } from "../api/apps";
 import "../css/appDetails.css";
+import "../css/index.css";
 
 class AppDetails extends React.Component {
   constructor() {
@@ -60,12 +61,12 @@ class AppDetails extends React.Component {
       details: { images }
     } = this.state.app;
     return images.map(src => {
-      return <img src={src} />;
+      return <img src={src} alt='app-detail-img' />;
     });
   };
 
   clickReadMore = () => {
-    if (this.state.descriptionClass == "") {
+    if (this.state.descriptionClass === "") {
       this.setState({
         descriptionClass: "small",
         readMoreContent: "Read more"
@@ -90,7 +91,7 @@ class AppDetails extends React.Component {
       <div className='details-wrapper'>
         <div className='info flex'>
           <div className='image-wrapper'>
-            <img src={image} />
+            <img src={image} alt='app-icon' />
           </div>
           <div className='details'>
             <div className='title'>{title}</div>
@@ -98,7 +99,7 @@ class AppDetails extends React.Component {
             <div className='rating'>Rating: {rating}</div>
           </div>
         </div>
-        <button className='install-btn'>Install</button>
+        <button className='green-btn install-btn'>Install</button>
         <div className='image-slider'>{this.renderImageSlider()}</div>
         <div
           className={`description ${this.state.descriptionClass}`}
