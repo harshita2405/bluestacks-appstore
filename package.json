@@ -32,5 +32,8 @@
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3"
+  },
+  "engines": {
+    "node": "11.3.0"
   }
 }
