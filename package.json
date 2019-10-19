@@ -11,7 +11,7 @@
     "watch-client": "cd client && npm run start",
     "server-debug": "nodemon --inspect --exec babel-node server",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
-    "concurrently": "concurrently \"npm run start\" \"npm run start --prefix client\""
+    "concurrently": "concurrently \"npm run start\" \"npm run --prefix build-client\" \"npm run start --prefix client\""
   },
   "author": "Harshita",
   "license": "ISC",
