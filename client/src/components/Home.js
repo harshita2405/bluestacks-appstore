@@ -69,7 +69,8 @@ class Home extends Component {
 
   fetchLatestApps = async () => {
     this.setState({
-      fetchLatestAppsDisabled: true
+      fetchLatestAppsDisabled: true,
+      alertMessage: "Loading ..."
     });
     try {
       const data = await fetchLatestApps();

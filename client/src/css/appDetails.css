@@ -47,6 +47,10 @@
   border-radius: 5px;
 }
 
+.details-wrapper .read-more:hover {
+  background-color: #ffe6e6;
+}
+
 .flex {
   display: flex;
 }
