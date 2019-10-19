@@ -2,7 +2,10 @@ import axios from "axios";
 import * as _ from "lodash";
 
 const localhostServer = axios.create({
-  baseURL: "http://localhost:5000"
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? "https://bluestacks-appstore.herokuapp.com"
+      : "http://localhost:5000"
 });
 
 export const fetchAllApps = _.memoize(async () => {
